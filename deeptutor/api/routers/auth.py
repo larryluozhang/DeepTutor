@@ -492,6 +492,23 @@ def _learning_surface_for_path(path: str, method: str = "GET") -> str:
         or normalized.startswith("/api/knowledge-bases/")
     ):
         return "reading"
+    # The learner shell still fires read-only bootstrap probes at app-level
+    # prefixes (feature detection, home suggestions, redacted settings views).
+    # Answering them with 403 surfaces a scary banner while the data itself is
+    # presentation-safe; allow reads, keep writes default-denied.
+    if method.upper() in ("GET", "HEAD", "OPTIONS"):
+        for root in (
+            "/api/tools",
+            "/api/settings",
+            "/api/partners",
+            "/api/partner-groups",
+            "/api/dashboard",
+            "/api/capabilities",
+            "/api/system",
+            "/api/subagents",
+        ):
+            if normalized == root or normalized.startswith(f"{root}/"):
+                return "chat"
     return ""
 
 

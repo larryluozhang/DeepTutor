@@ -42,11 +42,25 @@ from deeptutor.api.routers.auth import _learning_surface_for_path
         ("/api/knowledge-bases", "POST", ""),
         ("/api/knowledge-bases/kb1/upload", "POST", ""),
         ("/api/knowledge-bases/kb1/files/a.pdf", "DELETE", ""),
+        # Learner shell bootstrap probes: read-only allowed (banner fix).
+        ("/api/settings", "GET", "chat"),
+        ("/api/settings/workspace/registrations", "GET", "chat"),
+        ("/api/system/status", "GET", "chat"),
+        ("/api/system/update", "GET", "chat"),
+        ("/api/partners", "GET", "chat"),
+        ("/api/partner-groups", "GET", "chat"),
+        ("/api/tools", "GET", "chat"),
+        ("/api/dashboard/suggestions", "GET", "chat"),
+        ("/api/capabilities/registered", "GET", "chat"),
+        ("/api/subagents/settings", "GET", "chat"),
+        # …but mutations on the same prefixes stay default-denied.
+        ("/api/settings", "POST", ""),
+        ("/api/partners", "POST", ""),
+        ("/api/dashboard/suggestions", "POST", ""),
+        ("/api/system/update", "POST", ""),
         # Everything else still default-denies.
-        ("/api/settings", "GET", ""),
-        ("/api/system/status", "GET", ""),
-        ("/api/partners", "GET", ""),
         ("/api/memory/overview", "GET", ""),
+        ("/api/multi-user/users", "GET", ""),
         ("", "GET", ""),
     ],
 )
