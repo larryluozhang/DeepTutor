@@ -485,6 +485,11 @@ def _learning_surface_for_path(path: str, method: str = "GET") -> str:
     ):
         if normalized == root or normalized.startswith(f"{root}/"):
             return surface
+    # Learner-scoped writes: UI preferences resolve through the per-user
+    # path service into the caller's OWN workspace (interface.json), so
+    # saving language/theme is safe to allow for learning accounts.
+    if method.upper() in ("PUT", "PATCH") and normalized == "/api/settings/ui":
+        return "chat"
     # Knowledge-center browsing is a legitimate learner activity, but KB
     # mutations affect shared/admin-owned resources — read-only methods only.
     if method.upper() in ("GET", "HEAD", "OPTIONS") and (

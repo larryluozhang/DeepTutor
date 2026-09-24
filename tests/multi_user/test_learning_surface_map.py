@@ -53,6 +53,9 @@ from deeptutor.api.routers.auth import _learning_surface_for_path
         ("/api/dashboard/suggestions", "GET", "chat"),
         ("/api/capabilities/registered", "GET", "chat"),
         ("/api/subagents/settings", "GET", "chat"),
+        # Learner-scoped UI preference writes are allowed (own workspace file).
+        ("/api/settings/ui", "PUT", "chat"),
+        ("/api/settings/ui", "PATCH", "chat"),
         # …but mutations on the same prefixes stay default-denied.
         ("/api/settings", "POST", ""),
         ("/api/partners", "POST", ""),
