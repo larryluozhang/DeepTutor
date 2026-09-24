@@ -490,6 +490,14 @@ def _learning_surface_for_path(path: str, method: str = "GET") -> str:
     # saving language/theme is safe to allow for learning accounts.
     if method.upper() in ("PUT", "PATCH") and normalized == "/api/settings/ui":
         return "chat"
+    # The settings UI saves through a per-user draft document
+    # (/api/settings/draft). Catalog edits inside a draft still require
+    # admin in the endpoint itself, so opening the path is safe.
+    if method.upper() in ("PUT", "POST", "PATCH", "DELETE") and (
+        normalized == "/api/settings/draft"
+        or normalized.startswith("/api/settings/draft/")
+    ):
+        return "chat"
     # Knowledge-center browsing is a legitimate learner activity, but KB
     # mutations affect shared/admin-owned resources — read-only methods only.
     if method.upper() in ("GET", "HEAD", "OPTIONS") and (

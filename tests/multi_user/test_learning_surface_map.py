@@ -56,6 +56,12 @@ from deeptutor.api.routers.auth import _learning_surface_for_path
         # Learner-scoped UI preference writes are allowed (own workspace file).
         ("/api/settings/ui", "PUT", "chat"),
         ("/api/settings/ui", "PATCH", "chat"),
+        # Per-user settings draft document (catalog edits still admin-gated).
+        ("/api/settings/draft", "PUT", "chat"),
+        ("/api/settings/draft", "POST", "chat"),
+        ("/api/settings/draft", "DELETE", "chat"),
+        # …but runtime catalog apply stays admin-only.
+        ("/api/settings/apply", "POST", ""),
         # …but mutations on the same prefixes stay default-denied.
         ("/api/settings", "POST", ""),
         ("/api/partners", "POST", ""),
