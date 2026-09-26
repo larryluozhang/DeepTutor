@@ -34,6 +34,10 @@ from deeptutor.api.routers.auth import _learning_surface_for_path
         ("/api/mastery-paths/progress/book-1", "GET", "chat"),
         ("/api/mastery-paths/progress/book-1", "PATCH", "chat"),
         ("/api/mastery-paths/progress/book-1/redo", "POST", "chat"),
+        # Co-writer documents: own-workspace data, all methods.
+        ("/api/documents", "GET", "chat"),
+        ("/api/documents", "POST", "chat"),
+        ("/api/documents/actions/edit", "POST", "chat"),
         # Knowledge Center: read-only for learners.
         ("/api/knowledge-bases", "GET", "reading"),
         ("/api/knowledge-bases/kb1/files", "GET", "reading"),

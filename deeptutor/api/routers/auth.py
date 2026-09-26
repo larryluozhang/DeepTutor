@@ -482,6 +482,8 @@ def _learning_surface_for_path(path: str, method: str = "GET") -> str:
         # the router already scopes every record to the current account, so
         # all methods (including progress PATCH/POST) belong to "chat".
         ("/api/mastery-paths", "chat"),
+        # Co-writer documents likewise live in the learner's own workspace.
+        ("/api/documents", "chat"),
     ):
         if normalized == root or normalized.startswith(f"{root}/"):
             return surface
