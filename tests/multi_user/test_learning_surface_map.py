@@ -64,6 +64,12 @@ from deeptutor.api.routers.auth import _learning_surface_for_path
         ("/api/settings/draft", "PUT", "chat"),
         ("/api/settings/draft", "POST", "chat"),
         ("/api/settings/draft", "DELETE", "chat"),
+        # Workspace self-management: the learner's own registrations
+        # (GET is already covered by the read-only probes allowlist above).
+        ("/api/settings/workspace", "POST", "chat"),
+        ("/api/settings/workspace/ws_1", "PUT", "chat"),
+        ("/api/settings/workspace/ws_1", "PATCH", "chat"),
+        ("/api/settings/workspace/ws_1", "DELETE", "chat"),
         # …but runtime catalog apply stays admin-only.
         ("/api/settings/apply", "POST", ""),
         # …but mutations on the same prefixes stay default-denied.

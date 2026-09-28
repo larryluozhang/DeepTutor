@@ -500,6 +500,14 @@ def _learning_surface_for_path(path: str, method: str = "GET") -> str:
         or normalized.startswith("/api/settings/draft/")
     ):
         return "chat"
+    # Workspace registration/management is learner-scoped bookkeeping: the
+    # caller's own workspaces list inside their own scope directory, so
+    # learning accounts can create/rename/archive their study spaces.
+    if method.upper() in ("POST", "PUT", "PATCH", "DELETE") and (
+        normalized == "/api/settings/workspace"
+        or normalized.startswith("/api/settings/workspace/")
+    ):
+        return "chat"
     # Knowledge-center browsing is a legitimate learner activity, but KB
     # mutations affect shared/admin-owned resources — read-only methods only.
     if method.upper() in ("GET", "HEAD", "OPTIONS") and (
